@@ -703,6 +703,7 @@ void OGL_UpdateViewport()
     h = (int)(gSP.viewport.height * OGL.scaleY);
 
 	DEBUG_PRINT("Video: OpenGL.cpp:%d glViewport(%d,%d,%d,%d)\n", __LINE__, x, y, w, h);
+
     glViewport(x, y, w, h);
 	OPENGL_CHECK_ERRORS;
 }
@@ -1716,6 +1717,11 @@ void OGL_SwapBuffers()
 
         glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 		OPENGL_CHECK_ERRORS;
+	
+
+    // if emulator defined a render callback function, call it before
+	// buffer swap
+    if (renderCallback) (*renderCallback)(true);	OPENGL_CHECK_ERRORS;
 
 		if (CoreVideo_GL_SwapBuffers) CoreVideo_GL_SwapBuffers();
 
@@ -1728,12 +1734,12 @@ void OGL_SwapBuffers()
     }
     else
     {
-		if (CoreVideo_GL_SwapBuffers) CoreVideo_GL_SwapBuffers();
-    }
 
     // if emulator defined a render callback function, call it before
 	// buffer swap
     if (renderCallback) (*renderCallback)(true);
+		if (CoreVideo_GL_SwapBuffers) CoreVideo_GL_SwapBuffers();
+    }
 
     OGL.screenUpdate = false;
 
