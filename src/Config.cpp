@@ -34,7 +34,6 @@
 #include "Config.h"
 #include "Common.h"
 
-
 Config config;
 
 struct Option
@@ -58,8 +57,8 @@ Option configOptions[] =
     {"#Window Settings:", NULL, 0},
 //    {"window xpos", &config.window.xpos, 0},
 //    {"window ypos", &config.window.ypos, 0},
-    {"window width", &config.window.width, 400},
-    {"window height", &config.window.height, 240},
+    {"window width", &config.window.width, 2048},
+    {"window height", &config.window.height, 1536},
 //    {"window refwidth", &config.window.refwidth, 400},
 //    {"window refheight", &config.window.refheight, 240},
     {"multisampling", &config.multiSampling, 0},
@@ -81,7 +80,8 @@ Option configOptions[] =
     {"video force", &config.video.force, 0},
     {"video width", &config.video.width, 320},
     {"video height", &config.video.height, 240},
-    {"video stretch", &config.stretchVideo, 0},
+    {"video stretch", &config.stretchVideo, 1},
+    {"video rotate", &config.video.rotate, 3},
     {"", NULL, 0},
 
     {"#Render Settings:", NULL, 0},
@@ -155,10 +155,25 @@ void Config_WriteConfig(const char *filename)
 
 void Config_SetDefault()
 {
+    static m64p_handle video_general_section;
+    ConfigOpenSection("Video-General", &video_general_section);
+
     for(int i=0; i < configOptionsSize; i++)
     {
         Option *o = &configOptions[i];
-        if (o->data) *(o->data) = o->initial;
+        if(strcmp(o->name, "window height") == 0 && video_general_section)
+        {
+            if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenHeight");
+        }
+        else if(strcmp(o->name, "window width") == 0 && video_general_section)
+        {
+            if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenWidth");
+        }
+        else if(strcmp(o->name, "video rotate") == 0 && video_general_section)
+        {
+            if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "Rotate");
+        }
+        else if (o->data) *(o->data) = o->initial;
     }
 }
 

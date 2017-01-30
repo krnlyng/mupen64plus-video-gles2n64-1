@@ -704,7 +704,15 @@ void OGL_UpdateViewport()
 
 	DEBUG_PRINT("Video: OpenGL.cpp:%d glViewport(%d,%d,%d,%d)\n", __LINE__, x, y, w, h);
 
-    glViewport(x, y, w, h);
+    if(x == 0)
+    {
+        glViewport((float)y * ((float)config.window.width / (float)config.window.height), 0, h * (float)config.window.width / (float)config.window.height, w * (float)config.window.height / (float)config.window.width);
+    }
+    else
+    {
+        glViewport((float)y * ((float)config.window.width / (float)config.window.height), ((float)config.window.width - w - (float)x) * ((float)config.window.height / (float)config.window.width), h * (float)config.window.width / (float)config.window.height, w * (float)config.window.height / (float)config.window.width);
+    }
+    
 	OPENGL_CHECK_ERRORS;
 }
 
@@ -729,7 +737,14 @@ void OGL_UpdateScissor()
     y = config.framebuffer.ypos + (int)((VI.height - gDP.scissor.lry) * OGL.scaleY);
     w = (int)((gDP.scissor.lrx - gDP.scissor.ulx) * OGL.scaleX);
     h = (int)((gDP.scissor.lry - gDP.scissor.uly) * OGL.scaleY);
-    glScissor(x, y, w, h);
+    if(x == 0)
+    {
+        glScissor((float)y * ((float)config.window.width / (float)config.window.height), 0, h * (float)config.window.width / (float)config.window.height, w * (float)config.window.height / (float)config.window.width);
+    }
+    else
+    {
+        glScissor((float)y * ((float)config.window.width / (float)config.window.height), ((float)config.window.width - w - (float)x) * ((float)config.window.height / (float)config.window.width), h * (float)config.window.width / (float)config.window.height, w * (float)config.window.height / (float)config.window.width);
+    }
 	OPENGL_CHECK_ERRORS;
 }
 

@@ -23,7 +23,7 @@ struct Config
 
     struct
     {
-        int force, width, height;
+        int force, width, height, rotate;
     } video;
 
     struct

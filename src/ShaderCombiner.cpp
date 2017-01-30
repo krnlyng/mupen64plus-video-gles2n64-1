@@ -116,6 +116,7 @@ const char *_vert = "                                       \n"\
 "uniform float			uFogMultiplier, uFogOffset;         \n"\
 "uniform float 			uRenderState;                       \n"\
 "                                                           \n"\
+"uniform mediump mat4   uRotationMatrix;                    \n"\
 "uniform mediump vec2 	uTexScale;                          \n"\
 "uniform mediump vec2 	uTexOffset[2];                      \n"\
 "uniform mediump vec2 	uCacheShiftScale[2];                \n"\
@@ -129,7 +130,7 @@ const char *_vert = "                                       \n"\
 "                                                           \n"\
 "void main()                                                \n"\
 "{                                                          \n"\
-"gl_Position = aPosition;                                   \n"\
+"gl_Position = uRotationMatrix * aPosition;                 \n"\
 "vShadeColor = aColor;                                      \n"\
 "                                                           \n"\
 "if (uRenderState == 1.0)                                   \n"\
@@ -503,6 +504,7 @@ void _locate_uniforms(ShaderProgram *p)
     LocateUniform(uCacheScale[1]);
     LocateUniform(uCacheOffset[0]);
     LocateUniform(uCacheOffset[1]);
+    LocateUniform(uRotationMatrix);
 }
 
 void _force_uniforms()
@@ -563,6 +565,68 @@ void _force_uniforms()
         SC_ForceUniform2f(uCacheScale[1], 1.0f, 1.0f);
         SC_ForceUniform2f(uCacheOffset[1], 0.0f, 0.0f);
     }
+     GLfloat mat[16];
+
+    /* first setup everything which is the same everytime */
+    /* (X, X, 0, 0)
+     * (X, X, 0, 0)
+     * (0, 0, 1, 0)
+     * (0, 0, 0, 1)
+     */
+
+    //mat[0] =  cos(angle);
+    //mat[1] =  sin(angle);
+    mat[2] = 0;
+    mat[3] = 0;
+
+    //mat[4] = -sin(angle);
+    //mat[5] =  cos(angle);
+    mat[6] = 0;
+    mat[7] = 0;
+
+    mat[8] = 0;
+    mat[9] = 0;
+    mat[10] = 1;
+    mat[11] = 0;
+
+    mat[12] = 0;
+    mat[13] = 0;
+    mat[14] = 0;
+    mat[15] = 1;
+
+    /* now set the actual rotation */
+    if(1 == config.video.rotate) // 90 degree
+    {
+        mat[0] =  0;
+        mat[1] =  1;
+        mat[4] = -1;
+        mat[5] =  0;
+    }
+    else if(2 == config.video.rotate) // 180 degree
+    {
+        mat[0] = -1;
+        mat[1] =  0;
+        mat[4] =  0;
+        mat[5] =  -1;
+    }
+    else if(3 == config.video.rotate) // 270 degree
+    {
+        mat[0] =  0;
+        mat[1] = -1;
+        mat[4] =  1;
+        mat[5] =  0;
+    }
+    else /* 0 degree, also fallback if input is wrong) */
+    {
+        mat[0] =  1;
+        mat[1] =  0;
+        mat[4] =  0;
+        mat[5] =  1;
+    }
+
+    glUniformMatrix4fv(scProgramCurrent->uniforms.uRotationMatrix.loc, 1, GL_FALSE, mat);
+
+
 }
 
 void _update_uniforms()

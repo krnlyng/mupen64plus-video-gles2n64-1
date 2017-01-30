@@ -24,9 +24,10 @@
 #include <SDL.h>
 
 //#include "ae_bridge.h"
-
 ptr_ConfigGetSharedDataFilepath ConfigGetSharedDataFilepath = NULL;
 ptr_ConfigGetUserConfigPath 	ConfigGetUserConfigPath = NULL;
+ptr_ConfigOpenSection           ConfigOpenSection = NULL;
+ptr_ConfigGetParamInt           ConfigGetParamInt = NULL;
 ptr_VidExt_GL_SwapBuffers      	CoreVideo_GL_SwapBuffers = NULL;
 ptr_VidExt_SetVideoMode         CoreVideo_SetVideoMode = NULL;
 ptr_VidExt_GL_SetAttribute      CoreVideo_GL_SetAttribute = NULL;
@@ -47,6 +48,8 @@ EXPORT m64p_error CALL PluginStartup(m64p_dynlib_handle CoreLibHandle,
 {
     	ConfigGetSharedDataFilepath 	= (ptr_ConfigGetSharedDataFilepath)	dlsym(CoreLibHandle, "ConfigGetSharedDataFilepath");
     	ConfigGetUserConfigPath 	= (ptr_ConfigGetUserConfigPath)		dlsym(CoreLibHandle, "ConfigGetUserConfigPath");
+    	ConfigOpenSection	 	= (ptr_ConfigOpenSection)		dlsym(CoreLibHandle, "ConfigOpenSection");
+    	ConfigGetParamInt	 	= (ptr_ConfigGetParamInt)		dlsym(CoreLibHandle, "ConfigGetParamInt");
 	CoreVideo_GL_SwapBuffers 	= (ptr_VidExt_GL_SwapBuffers) 		dlsym(CoreLibHandle, "VidExt_GL_SwapBuffers");
 	CoreVideo_SetVideoMode 		= (ptr_VidExt_SetVideoMode)		dlsym(CoreLibHandle, "VidExt_SetVideoMode");
 	CoreVideo_GL_SetAttribute 	= (ptr_VidExt_GL_SetAttribute) 		dlsym(CoreLibHandle, "VidExt_GL_SetAttribute");
