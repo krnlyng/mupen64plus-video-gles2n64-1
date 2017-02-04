@@ -155,23 +155,23 @@ void Config_WriteConfig(const char *filename)
 
 void Config_SetDefault()
 {
-    static m64p_handle video_general_section;
-    static m64p_handle video_gles2n64_section;
-    ConfigOpenSection("Video-General", &video_general_section);
+    m64p_handle video_general_section;
+    m64p_handle video_gles2n64_section;
+    m64p_error err = ConfigOpenSection("Video-General", &video_general_section);
     ConfigOpenSection("Video-gles2n64", &video_gles2n64_section);
 
     for(int i=0; i < configOptionsSize; i++)
     {
         Option *o = &configOptions[i];
-        if(strcmp(o->name, "windowheight") == 0 && video_general_section)
+        if(strcmp(o->name, "windowheight") == 0 && !err)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenHeight");
         }
-        else if(strcmp(o->name, "windowwidth") == 0 && video_general_section)
+        else if(strcmp(o->name, "windowwidth") == 0 && !err)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenWidth");
         }
-        else if(strcmp(o->name, "videorotate") == 0 && video_general_section)
+        else if(strcmp(o->name, "videorotate") == 0 && !err)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "Rotate");
         }
@@ -179,11 +179,12 @@ void Config_SetDefault()
         {
             if (o->data)
             {
-                ConfigSetDefaultInt(video_gles2n64_section, o->name, *o->data, "");
+                ConfigSetDefaultInt(video_gles2n64_section, o->name, o->initial, "");
                 *(o->data) = ConfigGetParamInt(video_gles2n64_section, o->name);
             }
         }
     }
+    ConfigSaveSection("Video-gles2n64");
 }
 
 void Config_SetOption(char* line, char* val)
