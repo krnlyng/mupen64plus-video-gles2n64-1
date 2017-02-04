@@ -51,82 +51,82 @@ Option configOptions[] =
     {"#gles2n64 Graphics Plugin for N64", NULL, 0},
     {"#by Orkin / glN64 developers and Adventus.", NULL, 0},
 
-    {"config version", &config.version, 0},
+    {"configversion", &config.version, 0},
     {"", NULL, 0},
 
     {"#Window Settings:", NULL, 0},
-//    {"window xpos", &config.window.xpos, 0},
-//    {"window ypos", &config.window.ypos, 0},
-    {"window width", &config.window.width, 2048},
-    {"window height", &config.window.height, 1536},
-//    {"window refwidth", &config.window.refwidth, 400},
-//    {"window refheight", &config.window.refheight, 240},
+//    {"windowxpos", &config.window.xpos, 0},
+//    {"windowypos", &config.window.ypos, 0},
+    {"windowwidth", &config.window.width, 2048},
+    {"windowheight", &config.window.height, 1536},
+//    {"windowrefwidth", &config.window.refwidth, 400},
+//    {"windowrefheight", &config.window.refheight, 240},
     {"multisampling", &config.multiSampling, 0},
 #ifdef VC
-    {"auto resolution", &config.useScreenResolution, 1},
+    {"autoresolution", &config.useScreenResolution, 1},
 #endif
     {"", NULL, 0},
 
     {"#Framebuffer Settings:",NULL,0},
-//    {"framebuffer enable", &config.framebuffer.enable, 0},
-    {"framebuffer bilinear", &config.framebuffer.bilinear, 0},
-    {"framebuffer width", &config.framebuffer.width, 640},
-    {"framebuffer height", &config.framebuffer.height, 480},
-//    {"framebuffer width", &config.framebuffer.width, 800},
-//    {"framebuffer height", &config.framebuffer.height, 480},
+//    {"framebufferenable", &config.framebuffer.enable, 0},
+    {"framebufferbilinear", &config.framebuffer.bilinear, 0},
+    {"framebufferwidth", &config.framebuffer.width, 640},
+    {"framebufferheight", &config.framebuffer.height, 480},
+//    {"framebufferwidth", &config.framebuffer.width, 800},
+//    {"framebufferheight", &config.framebuffer.height, 480},
     {"", NULL, 0},
 
     {"#VI Settings:", NULL, 0},
-    {"video force", &config.video.force, 0},
-    {"video width", &config.video.width, 320},
-    {"video height", &config.video.height, 240},
-    {"video stretch", &config.stretchVideo, 1},
-    {"video rotate", &config.video.rotate, 3},
+    {"videoforce", &config.video.force, 0},
+    {"videowidth", &config.video.width, 320},
+    {"videoheight", &config.video.height, 240},
+    {"videostretch", &config.stretchVideo, 1},
+    {"videorotate", &config.video.rotate, 3},
     {"", NULL, 0},
 
     {"#Render Settings:", NULL, 0},
-    {"enable fog", &config.enableFog, 1},
-    {"enable primitive z", &config.enablePrimZ, 1},
-    {"enable lighting", &config.enableLighting, 1},
-    {"enable alpha test", &config.enableAlphaTest, 1},
-    {"enable clipping", &config.enableClipping, 0},
-    {"enable face culling", &config.enableFaceCulling, 1},
-    {"enable noise", &config.enableNoise, 0},
+    {"enablefog", &config.enableFog, 1},
+    {"enableprimitive z", &config.enablePrimZ, 1},
+    {"enablelighting", &config.enableLighting, 1},
+    {"enablealpha test", &config.enableAlphaTest, 1},
+    {"enableclipping", &config.enableClipping, 0},
+    {"enableface culling", &config.enableFaceCulling, 1},
+    {"enablenoise", &config.enableNoise, 0},
     {"", NULL, 0},
 
     {"#Texture Settings:", NULL, 0},
-    {"texture 2xSAI", &config.texture.sai2x, 0},
-    {"texture force bilinear", &config.texture.forceBilinear, 0},
-    {"texture max anisotropy", &config.texture.maxAnisotropy, 0},
-    {"texture use IA", &config.texture.useIA, 0},
-    {"texture fast CRC", &config.texture.fastCRC, 1},
-    {"texture pow2", &config.texture.pow2, 1},
+    {"texture2xSAI", &config.texture.sai2x, 0},
+    {"textureforce bilinear", &config.texture.forceBilinear, 0},
+    {"texturemax anisotropy", &config.texture.maxAnisotropy, 0},
+    {"textureuse IA", &config.texture.useIA, 0},
+    {"texturefast CRC", &config.texture.fastCRC, 1},
+    {"texturepow2", &config.texture.pow2, 1},
     {"", NULL, 0},
 
     {"#Frame skip:", NULL, 0},
-    {"auto frameskip", &config.autoFrameSkip, 1},
-    {"target FPS", &config.targetFPS, 20},
-    {"frame render rate", &config.frameRenderRate, 1},
-    {"vertical sync", &config.verticalSync, 0},
+    {"autoframeskip", &config.autoFrameSkip, 1},
+    {"targetFPS", &config.targetFPS, 20},
+    {"framerenderrate", &config.frameRenderRate, 1},
+    {"verticalsync", &config.verticalSync, 0},
     {"", NULL, 0},
 
     {"#Other Settings:", NULL, 0},
-    {"update mode", &config.updateMode, SCREEN_UPDATE_AT_VI_UPDATE },
+    {"updatemode", &config.updateMode, SCREEN_UPDATE_AT_VI_UPDATE },
 	{"print FPS", &config.printFPS, 0},
-    {"ignore offscreen rendering", &config.ignoreOffscreenRendering, 0},
-    {"force screen clear", &config.forceBufferClear, 0},
-    {"flip vertical", &config.screen.flipVertical, 0},
+    {"ignoreoffscreenrendering", &config.ignoreOffscreenRendering, 0},
+    {"forcescreenclear", &config.forceBufferClear, 0},
+    {"flipvertical", &config.screen.flipVertical, 0},
 // paulscode: removed from pre-compile to a config option
 //// (part of the Galaxy S Zelda crash-fix
-    {"tribuffer opt", &config.tribufferOpt, 1},
+    {"tribufferopt", &config.tribufferOpt, 1},
 //
     {"", NULL, 0},
 
     {"#Hack Settings:", NULL, 0},
-    {"hack banjo tooie", &config.hackBanjoTooie, 0},
-    {"hack zelda", &config.hackZelda, 0},
-    {"hack alpha", &config.hackAlpha, 0},
-    {"hack z", &config.zHack, 0},
+    {"hackbanjotooie", &config.hackBanjoTooie, 0},
+    {"hackzelda", &config.hackZelda, 0},
+    {"hackalpha", &config.hackAlpha, 0},
+    {"hackz", &config.zHack, 0},
 
 };
 
@@ -156,24 +156,33 @@ void Config_WriteConfig(const char *filename)
 void Config_SetDefault()
 {
     static m64p_handle video_general_section;
+    static m64p_handle video_gles2n64_section;
     ConfigOpenSection("Video-General", &video_general_section);
+    ConfigOpenSection("Video-gles2n64", &video_gles2n64_section);
 
     for(int i=0; i < configOptionsSize; i++)
     {
         Option *o = &configOptions[i];
-        if(strcmp(o->name, "window height") == 0 && video_general_section)
+        if(strcmp(o->name, "windowheight") == 0 && video_general_section)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenHeight");
         }
-        else if(strcmp(o->name, "window width") == 0 && video_general_section)
+        else if(strcmp(o->name, "windowwidth") == 0 && video_general_section)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "ScreenWidth");
         }
-        else if(strcmp(o->name, "video rotate") == 0 && video_general_section)
+        else if(strcmp(o->name, "videorotate") == 0 && video_general_section)
         {
             if(o->data) *(o->data) = ConfigGetParamInt(video_general_section, "Rotate");
         }
-        else if (o->data) *(o->data) = o->initial;
+        else
+        {
+            if (o->data)
+            {
+                ConfigSetDefaultInt(video_gles2n64_section, o->name, *o->data, "");
+                *(o->data) = ConfigGetParamInt(video_gles2n64_section, o->name);
+            }
+        }
     }
 }
 
@@ -285,7 +294,7 @@ void Config_LoadConfig()
 
     // default configuration
     Config_SetDefault();
-
+#if 0
     // read configuration from shared data path
     const char *sharedDataFilename = ConfigGetSharedDataFilepath("gles2n64.conf");
     char filename[PATH_MAX]; // store the path to the config file to open
@@ -336,6 +345,6 @@ void Config_LoadConfig()
 
 		fclose(f);
 	}
-	
+#endif
 }
 
